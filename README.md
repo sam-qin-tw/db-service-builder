@@ -1,1 +1,1 @@
-# dbservice-factory
+    go generate github.com/samqintw/dbservice-factory

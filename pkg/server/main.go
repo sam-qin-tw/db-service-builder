@@ -1,33 +1,33 @@
 package server
 
 import (
-	"context"
+	"log"
 	"net"
 
-	"github.com/golang/glog"
 	pb "github.com/samqintw/dbservice-factory/protobuf"
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 // Run starts the example gRPC service.
 // "network" and "address" are passed to net.Listen.
 func Run(ctx context.Context, network, address string) error {
-	l, err := net.Listen(network, address)
+	listener, err := net.Listen(network, address)
 	if err != nil {
 		return err
 	}
 	defer func() {
-		if err := l.Close(); err != nil {
-			glog.Errorf("Failed to close %s %s: %v", network, address, err)
+		if err := listener.Close(); err != nil {
+			log.Fatalf("Failed to close %s %s: %v", network, address, err)
 		}
 	}()
 
-	s := grpc.NewServer()
-	pb.RegisterEchoServiceServer(s, newEchoServer())
+	server := grpc.NewServer()
+	pb.RegisterEchoServiceServer(server, newEchoServer())
 
 	go func() {
-		defer s.GracefulStop()
+		defer server.GracefulStop()
 		<-ctx.Done()
 	}()
-	return s.Serve(l)
+	return server.Serve(listener)
 }
