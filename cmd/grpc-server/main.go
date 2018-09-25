@@ -1,11 +1,11 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 
 	"github.com/samqintw/dbservice-factory/pkg/server"
-	"golang.org/x/net/context"
 )
 
 const (

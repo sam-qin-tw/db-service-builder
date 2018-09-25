@@ -1,9 +1,9 @@
 package server
 
 import (
+	"context"
 	"github.com/golang/glog"
 	pb "github.com/samqintw/dbservice-factory/protobuf"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 	"log"

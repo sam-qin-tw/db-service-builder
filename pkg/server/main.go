@@ -1,11 +1,11 @@
 package server
 
 import (
+	"context"
 	"log"
 	"net"
 
 	pb "github.com/samqintw/dbservice-factory/protobuf"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
