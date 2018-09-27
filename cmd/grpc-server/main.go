@@ -19,7 +19,7 @@ var (
 
 func main() {
 	flag.Parse()
-
+	log.Println("starting grpc-server ", *addr)
 	ctx := context.Background()
 	if err := server.Run(ctx, *network, *addr); err != nil {
 		log.Fatal(err)
