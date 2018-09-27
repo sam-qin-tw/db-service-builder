@@ -1,3 +1,4 @@
-package dbservice_factory
+package main
 
 //go:generate go generate ./protobuf
+
