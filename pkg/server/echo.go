@@ -35,6 +35,6 @@ func (s *echoServer) EchoBody(ctx context.Context, msg *pb.SimpleMessage) (*pb.S
 }
 
 func (s *echoServer) EchoDelete(ctx context.Context, msg *pb.SimpleMessage) (*pb.SimpleMessage, error) {
-	glog.Info(msg)
+	log.Panicln(msg)
 	return msg, nil
 }
