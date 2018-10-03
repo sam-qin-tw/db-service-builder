@@ -3,9 +3,8 @@ package main
 import (
 	"context"
 	"flag"
-	"log"
-
 	"github.com/samqintw/dbservice-factory/pkg/server"
+	"log"
 )
 
 const (

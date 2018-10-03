@@ -5,6 +5,11 @@ https://grpc.io/docs/tutorials/basic/go.html
 https://developers.google.com/protocol-buffers/docs/reference/go-generated
 
     go get github.com/golang/protobuf/protoc-gen-go
+    
+https://github.com/grpc-ecosystem/grpc-gateway
+
+    go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+    go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 
 #echo-service.proto
     //Generate gRPC stub
