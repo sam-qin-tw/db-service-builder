@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"flag"
+	"log"
 
-	"github.com/golang/glog"
 	"github.com/samqintw/dbservice-factory/pkg/gateway"
 )
 
@@ -16,8 +16,7 @@ var (
 
 func main() {
 	flag.Parse()
-	defer glog.Flush()
-
+	log.Println("starting grpc-gateway, endpoint is ", *endpoint)
 	ctx := context.Background()
 	opts := gateway.Options{
 		Addr: ":8080",
@@ -28,6 +27,6 @@ func main() {
 		SwaggerDir: *swaggerDir,
 	}
 	if err := gateway.Run(ctx, opts); err != nil {
-		glog.Fatal(err)
+		log.Fatalln(err)
 	}
 }

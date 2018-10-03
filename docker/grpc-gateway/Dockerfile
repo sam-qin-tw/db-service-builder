@@ -27,6 +27,4 @@ RUN go generate $app_package && \
 FROM scratch
 COPY --from=golang_env /go/bin/grpc-gateway /usr/local/bin/
 COPY --from=golang_env /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-# // debug
-# COPY ../sleep.sh /usr/local/bin/
 ENTRYPOINT ["grpc-gateway"]

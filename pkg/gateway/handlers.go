@@ -2,11 +2,11 @@ package gateway
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"path"
 	"strings"
 
-	"github.com/golang/glog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/connectivity"
 )
@@ -14,12 +14,12 @@ import (
 func swaggerServer(dir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if !strings.HasSuffix(r.URL.Path, ".swagger.json") {
-			glog.Errorf("Not Found: %s", r.URL.Path)
+			log.Printf("Not Found: %s", r.URL.Path)
 			http.NotFound(w, r)
 			return
 		}
 
-		glog.Infof("Serving %s", r.URL.Path)
+		log.Printf("Serving %s", r.URL.Path)
 		p := strings.TrimPrefix(r.URL.Path, "/swagger/")
 		p = path.Join(dir, p)
 		http.ServeFile(w, r, p)
@@ -46,7 +46,7 @@ func preflightHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", strings.Join(headers, ","))
 	methods := []string{"GET", "HEAD", "POST", "PUT", "DELETE"}
 	w.Header().Set("Access-Control-Allow-Methods", strings.Join(methods, ","))
-	glog.Infof("preflight request for %s", r.URL.Path)
+	log.Printf("preflight request for %s", r.URL.Path)
 }
 
 func healthzServer(conn *grpc.ClientConn) http.HandlerFunc {

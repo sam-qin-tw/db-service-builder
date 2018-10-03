@@ -2,7 +2,6 @@ package gateway
 
 import (
 	"context"
-	"github.com/golang/glog"
 	"log"
 	"net/http"
 
@@ -63,15 +62,15 @@ func Run(ctx context.Context, opts Options) error {
 	}
 	go func() {
 		<-ctx.Done()
-		glog.Infof("Shutting down the http server")
+		log.Printf("Shutting down the http server")
 		if err := s.Shutdown(context.Background()); err != nil {
-			glog.Errorf("Failed to shutdown http server: %v", err)
+			log.Printf("Failed to shutdown http server: %v", err)
 		}
 	}()
 
-	glog.Infof("Starting listening at %s", opts.Addr)
+	log.Printf("Starting listening at %s", opts.Addr)
 	if err := s.ListenAndServe(); err != http.ErrServerClosed {
-		glog.Errorf("Failed to listen and serve: %v", err)
+		log.Printf("Failed to listen and serve: %v", err)
 		return err
 	}
 	return nil
