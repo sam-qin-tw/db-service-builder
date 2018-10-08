@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dbservice-factory.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "dbservice-factory.name" . }}
+    helm.sh/chart: {{ include "dbservice-factory.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: grpc-server
+      port: {{ .Values.service.grpcServer.port }}
+      targetPort: {{ .Values.service.grpcServer.targetPort }}
+      protocol: {{ .Values.service.grpcServer.protocol }}
+    - name: grpc-gateway
+      port: {{ .Values.service.grpcGateway.port }}
+      targetPort: {{ .Values.service.grpcGateway.targetPort }}
+      protocol: {{ .Values.service.grpcGateway.protocol }}
+  selector:
+    app.kubernetes.io/name: {{ include "dbservice-factory.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
