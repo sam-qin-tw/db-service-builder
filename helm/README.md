@@ -1,4 +1,3 @@
-    helm create dbservice-factory
     
     // packing
     helm package ./dbservice-factory -d ./package
@@ -7,4 +6,7 @@
     helm install . --name dbservice-factory --namespace cloud-svc
     
     // install from github
-    helm install --repo https://github.com/samqintw/dbservice-factory/tree/master/helm dbservice-factory --name dbservice-factory --namespace cloud-svc
+    version=dbservice-factory-0.1.0.tgz && \
+    helm install https://github.com/samqintw/dbservice-factory/raw/master/helm/package/$version \
+    --name dbservice-factory \
+    --namespace cloud-svc
