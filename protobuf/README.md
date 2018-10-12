@@ -38,3 +38,4 @@ https://github.com/grpc-ecosystem/grpc-gateway
            --go_out=plugins=grpc:./ \
            --grpc-gateway_out=logtostderr=true,grpc_api_configuration=./unannotated_echo_service.yaml:./ \
            ./unannotated_echo_service.proto
+

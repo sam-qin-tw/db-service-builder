@@ -3,12 +3,12 @@ config_version: 3
 
 http:
   rules:
-  - selector: grpc.gateway.examples.examplepb.UnannotatedEchoService.Echo
+  - selector: dbservice_factory.EchoService.Echo
     post: "/v1/example/echo/{id}"
     additional_bindings:
     - get: "/v1/example/echo/{id}/{num}"
-  - selector: grpc.gateway.examples.examplepb.UnannotatedEchoService.EchoBody
+  - selector: dbservice_factory.EchoService.EchoBody
     post: "/v1/example/echo_body"
     body: "*"
-  - selector: grpc.gateway.examples.examplepb.UnannotatedEchoService.EchoDelete
+  - selector: dbservice_factory.EchoService.EchoDelete
     delete: "/v1/example/echo_delete"

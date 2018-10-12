@@ -10,3 +10,6 @@
     helm install https://github.com/samqintw/dbservice-factory/raw/master/helm/package/$version \
     --name dbservice-factory \
     --namespace cloud-svc
+    
+    // purge 
+    helm del --purge dbservice-factory

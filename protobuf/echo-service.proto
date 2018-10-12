@@ -2,35 +2,23 @@ syntax = "proto3";
 option go_package = "protobuf";
 
 // Echo Service
+// Similar to annotated_echo_service.proto but without annotations. See
+// echo_service.yaml for the equivalent of the annotations in
+// gRPC API configuration format.
 //
 // Echo Service API consists of a single service which returns
 // a message.
-package grpc.gateway.examples.examplepb;
+package dbservice_factory;
 
-import "google/api/annotations.proto";
+// Do not need annotations.proto, can still use well known types as usual
+import "google/protobuf/duration.proto";
 
-// Embedded represents a message embedded in SimpleMessage.
-message Embedded {
-    oneof mark {
-        int64 progress = 1;
-        string note = 2;
-    }
-}
-
-// SimpleMessage represents a simple message sent to the Echo service.
+// UnannotatedSimpleMessage represents a simple message sent to the unannotated Echo service.
 message SimpleMessage {
     // Id represents the message identifier.
     string id = 1;
     int64 num = 2;
-    oneof code {
-        int64 line_num = 3;
-        string lang = 4;
-    }
-    Embedded status = 5;
-    oneof ext {
-        int64 en = 6;
-        Embedded no = 7;
-    }
+    google.protobuf.Duration duration = 3;
 }
 
 // Echo service responds to incoming echo requests.
@@ -39,34 +27,11 @@ service EchoService {
     //
     // The message posted as the id parameter will also be
     // returned.
-    rpc Echo(SimpleMessage) returns (SimpleMessage) {
-        option (google.api.http) = {
-			post: "/v1/example/echo/{id}"
-			additional_bindings {
-				get: "/v1/example/echo/{id}/{num}"
-			}
-			additional_bindings {
-				get: "/v1/example/echo/{id}/{num}/{lang}"
-			}
-			additional_bindings {
-				get: "/v1/example/echo1/{id}/{line_num}/{status.note}"
-			}
-			additional_bindings {
-				get: "/v1/example/echo2/{no.note}"
-			}
-		};
-    }
+    rpc Echo(SimpleMessage) returns (SimpleMessage);
+
     // EchoBody method receives a simple message and returns it.
-    rpc EchoBody(SimpleMessage) returns (SimpleMessage) {
-        option (google.api.http) = {
-			post: "/v1/example/echo_body"
-			body: "*"
-		};
-    }
+    rpc EchoBody(SimpleMessage) returns (SimpleMessage);
+
     // EchoDelete method receives a simple message and returns it.
-    rpc EchoDelete(SimpleMessage) returns (SimpleMessage) {
-        option (google.api.http) = {
-			delete: "/v1/example/echo_delete"
-		};
-    }
+    rpc EchoDelete(SimpleMessage) returns (SimpleMessage);
 }

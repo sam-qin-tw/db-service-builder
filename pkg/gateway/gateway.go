@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/grpc-ecosystem/grpc-gateway/examples/proto/examplepb"
 	gwruntime "github.com/grpc-ecosystem/grpc-gateway/runtime"
+	pb "github.com/samqintw/dbservice-factory/protobuf"
 	"google.golang.org/grpc"
 )
 
@@ -18,11 +18,11 @@ func newGateway(ctx context.Context, conn *grpc.ClientConn, opts []gwruntime.Ser
 	mux := gwruntime.NewServeMux(opts...)
 
 	for _, f := range []func(context.Context, *gwruntime.ServeMux, *grpc.ClientConn) error{
-		examplepb.RegisterEchoServiceHandler,
-		examplepb.RegisterStreamServiceHandler,
-		examplepb.RegisterABitOfEverythingServiceHandler,
-		examplepb.RegisterFlowCombinationHandler,
-		examplepb.RegisterResponseBodyServiceHandler,
+		pb.RegisterEchoServiceHandler,
+		//pb.RegisterStreamServiceHandler,
+		//pb.RegisterABitOfEverythingServiceHandler,
+		//pb.RegisterFlowCombinationHandler,
+		//pb.RegisterResponseBodyServiceHandler,
 	} {
 		if err := f(ctx, mux, conn); err != nil {
 			return nil, err
